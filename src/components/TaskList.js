@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import Task from "./Task";
-import Stack from "@mui/material/Stack";
-import { StackStyle } from "../styles/TaskList";
 import TaskForm from "./TaskForm";
+import { Box, Container, Paper, Typography } from "@mui/material";
+import { Stack } from "@mui/system";
 
 function TaskList() {
+    console.log("render");
+
     const [todos, setTodos] = useState([
-        { id: 0, text: "test1" },
-        { id: 1, text: "text2" },
+        { id: 0, text: "Buy milk", done: true },
+        { id: 1, text: "Buy cigarette", done: true },
+        { id: 2, text: "Abandon family", done: false },
     ]);
 
     const stuff = (todo) => {
@@ -19,10 +22,8 @@ function TaskList() {
         setTodos((oldTodos) => [...oldTodos, todo]);
     };
 
-    const updateTodo = (todoId, newValue) => {
-        setTodos((oldTodos) =>
-            oldTodos.map((item) => (item.id === todoId ? { id: todoId, text: newValue } : item))
-        );
+    const updateTodo = (todoId, newItem) => {
+        setTodos((oldTodos) => oldTodos.map((item) => (item.id === todoId ? newItem : item)));
     };
 
     const removeTodo = (id) => {
@@ -31,26 +32,37 @@ function TaskList() {
     };
 
     return (
-        <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={3}
-            sx={StackStyle}
-        >
-            <h1>Oi mate, Wha' are the plans for today?</h1>
-            <TaskForm onSubmit={stuff} />
-            {todos.map((item) => {
-                return (
-                    <Task
-                        key={item.id}
-                        item={item}
-                        removeTodo={removeTodo}
-                        updateTodo={updateTodo}
-                    />
-                );
-            })}
-        </Stack>
+        <Container component="span" sx={{ width: "90%" }}>
+            <Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={3}>
+                <Box
+                    component={Paper}
+                    sx={{
+                        p: 3,
+                        backgroundColor: "#e8f4f8",
+                        margin: 5,
+                        width: "100%",
+                        maxWidth: "md",
+                    }}
+                >
+                    <Stack direction="column" alignItems="stretch" spacing={2}>
+                        <Typography variant="h4" align="center" gutterBottom={true}>
+                            Task manager, or something like that...
+                        </Typography>
+                        <TaskForm onSubmit={stuff} />
+                        {todos.map((item) => {
+                            return (
+                                <Task
+                                    key={item.id}
+                                    item={item}
+                                    removeTodo={removeTodo}
+                                    updateTodo={updateTodo}
+                                />
+                            );
+                        })}
+                    </Stack>
+                </Box>
+            </Stack>
+        </Container>
     );
 }
 

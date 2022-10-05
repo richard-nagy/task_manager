@@ -1,7 +1,9 @@
-import { Button, Fab, Paper, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Stack } from "@mui/system";
-import React, { useState, useEffect, useRef } from "react";
-import MuiPaper from "../styles/common/Paper";
+import React, { useState } from "react";
+import MuiFab from "../styles/common/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import { ContainerPaper } from "../styles/common/Paper";
 
 function TaskForm(props) {
     const [input, setInput] = useState(props.edit ? props.edit.value : "");
@@ -21,20 +23,16 @@ function TaskForm(props) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <MuiPaper>
+        <ContainerPaper>
+            <form onSubmit={handleSubmit}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <TextField
-                        label="I'm no' mucking around, give me a task you bloody wanker!"
-                        value={input}
-                        onChange={handleChange}
-                    />
-                    <Fab color="primary" onClick={handleSubmit}>
-                        +
-                    </Fab>
+                    <TextField label="New task..." value={input} onChange={handleChange} />
+                    <MuiFab tooltip="Add" color="primary" onClick={handleSubmit}>
+                        <AddIcon />
+                    </MuiFab>
                 </Stack>
-            </MuiPaper>
-        </form>
+            </form>
+        </ContainerPaper>
     );
 }
 
