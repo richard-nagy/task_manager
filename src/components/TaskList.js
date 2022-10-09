@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Task from "./Task";
 import TaskForm from "./TaskForm";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import { TasksContainer } from "../styles/TaskList";
 
 function TaskList() {
     console.log("render");
 
     const [todos, setTodos] = useState([
         { id: 0, text: "Buy milk", done: true },
-        { id: 1, text: "Buy cigarette", done: true },
-        { id: 2, text: "Abandon family", done: false },
+        { id: 1, text: "Take the dog for a walk", done: false },
     ]);
 
     const stuff = (todo) => {
@@ -34,19 +34,10 @@ function TaskList() {
     return (
         <Container component="span" sx={{ width: "90%" }}>
             <Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={3}>
-                <Box
-                    component={Paper}
-                    sx={{
-                        p: 3,
-                        backgroundColor: "#e8f4f8",
-                        margin: 5,
-                        width: "100%",
-                        maxWidth: "md",
-                    }}
-                >
+                <TasksContainer>
                     <Stack direction="column" alignItems="stretch" spacing={2}>
                         <Typography variant="h4" align="center" gutterBottom={true}>
-                            Task manager, or something like that...
+                            Task manager
                         </Typography>
                         <TaskForm onSubmit={stuff} />
                         {todos.map((item) => {
@@ -60,7 +51,7 @@ function TaskList() {
                             );
                         })}
                     </Stack>
-                </Box>
+                </TasksContainer>
             </Stack>
         </Container>
     );

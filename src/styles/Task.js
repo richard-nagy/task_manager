@@ -1,7 +1,17 @@
-import styled from "@emotion/styled";
-import { Box } from "@mui/system";
+import { Typography } from "@mui/material";
 
-export const TextContainer = styled(Box)(() => ({
-    textOverflow: "ellipsis",
-    width: "100px",
-}));
+export const TextContainer = ({ children, ...rest }) => {
+    return (
+        <Typography
+            {...rest}
+            sx={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                width: "100%",
+            }}
+        >
+            {children}
+        </Typography>
+    );
+};

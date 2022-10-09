@@ -37,13 +37,6 @@ const theme = () => {
                     },
                 },
             },
-            MuiCheckbox: {
-                styleOverrides: {
-                    root: {
-                        marginLeft: "10px",
-                    },
-                },
-            },
         },
     });
 };
