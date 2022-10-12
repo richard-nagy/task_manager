@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import Task from "./Task";
 import TaskForm from "./TaskForm";
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { TasksContainer } from "../styles/TaskList";
 
-function TaskList() {
-    console.log("render");
-
+function TaskList({ title, bgColor }) {
     const [todos, setTodos] = useState([
         { id: 0, text: "Buy milk", done: true },
         { id: 1, text: "Take the dog for a walk", done: false },
     ]);
 
-    const stuff = (todo) => {
+    const submitTask = (todo) => {
         if (!todo.text || /^\s*$/.test(todo.text)) {
-            console.log("cant add empty stuff");
+            console.log("cant add empty task");
             return;
         }
 
@@ -33,26 +31,22 @@ function TaskList() {
 
     return (
         <Container sx={{ width: "500px" }}>
-            <Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={3}>
-                <TasksContainer>
-                    <Stack direction="column" spacing={2}>
-                        <Typography variant="h4" align="center" gutterBottom={true}>
-                            Task manager
-                        </Typography>
-                        <TaskForm onSubmit={stuff} />
-                        {todos.map((item) => {
-                            return (
-                                <Task
-                                    key={item.id}
-                                    item={item}
-                                    removeTodo={removeTodo}
-                                    updateTodo={updateTodo}
-                                />
-                            );
-                        })}
-                    </Stack>
-                </TasksContainer>
-            </Stack>
+            <TasksContainer bgColor={bgColor.second}>{title}</TasksContainer>
+            <TasksContainer bgColor={bgColor.main}>
+                <Stack direction="column" spacing={2}>
+                    <TaskForm onSubmit={submitTask} />
+                    {todos.map((item) => {
+                        return (
+                            <Task
+                                key={item.id}
+                                item={item}
+                                removeTodo={removeTodo}
+                                updateTodo={updateTodo}
+                            />
+                        );
+                    })}
+                </Stack>
+            </TasksContainer>
         </Container>
     );
 }

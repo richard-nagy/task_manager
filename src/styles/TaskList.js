@@ -1,14 +1,13 @@
 import { Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
-export const TasksContainer = ({ children, ...rest }) => {
+export const TasksContainer = ({ children, bgColor, ...rest }) => {
     return (
         <Box
             {...rest}
-            component={Paper}
             sx={{
                 p: 3,
-                backgroundColor: "#e8f4f8",
+                backgroundColor: bgColor,
                 width: "100%",
                 maxWidth: "md",
             }}
