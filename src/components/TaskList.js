@@ -32,10 +32,10 @@ function TaskList() {
     };
 
     return (
-        <Container component="span" sx={{ width: "90%" }}>
+        <Container sx={{ width: "500px" }}>
             <Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={3}>
                 <TasksContainer>
-                    <Stack direction="column" alignItems="stretch" spacing={2}>
+                    <Stack direction="column" spacing={2}>
                         <Typography variant="h4" align="center" gutterBottom={true}>
                             Task manager
                         </Typography>

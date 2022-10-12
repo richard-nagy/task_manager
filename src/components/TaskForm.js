@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import MuiFab from "../styles/common/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { ContainerPaper } from "../styles/common/Paper";
+import { ResponsiveStack } from "../styles/common/Stack";
 
 function TaskForm(props) {
     const [input, setInput] = useState(props.edit ? props.edit.value : "");
@@ -25,12 +26,12 @@ function TaskForm(props) {
     return (
         <ContainerPaper>
             <form onSubmit={handleSubmit}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <ResponsiveStack>
                     <TextField label="New task..." value={input} onChange={handleChange} />
                     <MuiFab tooltip="Add" color="primary" onClick={handleSubmit}>
                         <AddIcon />
                     </MuiFab>
-                </Stack>
+                </ResponsiveStack>
             </form>
         </ContainerPaper>
     );
