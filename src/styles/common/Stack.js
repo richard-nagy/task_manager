@@ -16,7 +16,7 @@ export const ResponsiveStack = ({ children, ...rest }) => {
 
 export const ButtonStack = ({ children, ...rest }) => {
     return (
-        <Stack direction="row" {...rest} sx={{ width: { xs: "100%", sm: "100px" } }}>
+        <Stack {...rest} sx={{ width: { xs: "100%", sm: "100px" } }}>
             {children}
         </Stack>
     );

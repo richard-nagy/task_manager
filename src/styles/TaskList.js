@@ -3,16 +3,16 @@ import { Box } from "@mui/system";
 
 export const TasksContainer = ({ children, bgColor, ...rest }) => {
     return (
-        <Box
+        <Paper
             {...rest}
             sx={{
                 p: 3,
                 backgroundColor: bgColor,
-                width: "100%",
+                width: "400px",
                 maxWidth: "md",
             }}
         >
             {children}
-        </Box>
+        </Paper>
     );
 };

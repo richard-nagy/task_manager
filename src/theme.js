@@ -20,10 +20,16 @@ const theme = () => {
                 },
                 styleOverrides: {
                     root: {
-                        margin: "0px 5px",
+                        "&.Mui-focused fieldset": {
+                            backgroundColor: "yellow",
+                        },
+                        resize: {
+                            fontSize: 100,
+                        },
                     },
                 },
             },
+
             MuiFab: {
                 defaultProps: {
                     size: "small",

@@ -1,5 +1,13 @@
-import { Checkbox, Grid, Stack, TextField } from "@mui/material";
-import React, { useState } from "react";
+import {
+    Checkbox,
+    Grid,
+    Link,
+    Stack,
+    TextareaAutosize,
+    TextField,
+    Typography,
+} from "@mui/material";
+import React, { createContext, useContext, useState } from "react";
 import { ContainerPaper } from "../styles/common/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -8,67 +16,62 @@ import SaveIcon from "@mui/icons-material/Save";
 import MuiFab from "../styles/common/Fab";
 import { TextContainer } from "../styles/Task";
 import { ButtonStack, ResponsiveStack } from "../styles/common/Stack";
+import styled from "@emotion/styled";
+import { Context } from "../App";
 
-const Task = ({ item, removeTodo, updateTodo }) => {
-    const [edit, setEdit] = useState(false);
-    const [text, setText] = useState(item.text);
+const CssTextField = styled(TextField)({
+    "& .MuiOutlinedInput-root": {
+        "&.Mui-focused": {
+            backgroundColor: "#FFFFFF80",
+            border: "none",
+        },
+        "&:hover": {
+            backgroundColor: "#FFFFFFB3",
+        },
+        "& fieldset": {
+            border: "none",
+        },
+    },
+});
 
-    const handleSave = (done) => {
-        updateTodo(item.id, { id: item.id, text: text, done: done });
-        setEdit(false);
+const Task = ({ task, taskIndex, listIndex }) => {
+    const [editedTask, setEditedTask] = useState({ id: task.id, description: task.description });
+
+    const changeListsTasks = useContext(Context);
+
+    const handleTextboxInput = (e) => {
+        setEditedTask((oldTask) => ({ ...oldTask, description: e.target.value }));
+        changeListsTasks("edit", taskIndex, listIndex, editedTask);
     };
 
-    const handleCancel = () => {
-        setText(item.text);
-        setEdit(false);
-    };
-
-    const handleChange = (e) => {
-        setText(e.target.value);
-    };
-
-    const handleDelete = (e) => {
-        removeTodo(item.id);
-    };
-
-    const TaskContent = () => {
-        if (edit) {
-            return (
-                <>
-                    <TextField value={text} onChange={(e) => handleChange(e)} />
-                    <MuiFab tooltip="Save" color="success" onClick={() => handleSave(item.done)}>
-                        <SaveIcon />
-                    </MuiFab>
-                    <MuiFab tooltip="Cancel" color="error" onClick={handleCancel}>
-                        <CancelIcon />
-                    </MuiFab>
-                </>
-            );
-        }
-
-        return (
-            <>
-                <Stack direction="row" justifyContent="flexStart" alignItems="center" width={1}>
-                    <Checkbox checked={item.done} onChange={() => handleSave(!item.done)} />
-                    <TextContainer>{item.text}</TextContainer>
-                </Stack>
-                <ButtonStack>
-                    <MuiFab tooltip="Edit" color="primary" onClick={() => setEdit(true)}>
-                        <EditIcon />
-                    </MuiFab>
-                    <MuiFab tooltip="Delete" color="error" onClick={handleDelete}>
-                        <DeleteIcon />
-                    </MuiFab>
-                </ButtonStack>
-            </>
-        );
+    const handleDeleteClick = () => {
+        changeListsTasks("delete", taskIndex, listIndex);
     };
 
     return (
         <ContainerPaper>
-            <ResponsiveStack direction="row" alignItems="center">
-                {TaskContent()}
-            </ResponsiveStack>
+            <Stack direction="column" alignItems="flex-end">
+                <CssTextField
+                    multiline
+                    value={editedTask.description}
+                    onChange={(e) => handleTextboxInput(e)}
+                    maxRows={6}
+                />
+                <Typography
+                    variant="caption"
+                    mt={1}
+                    sx={{
+                        color: "gray",
+                        ":hover": {
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                        },
+                    }}
+                    onClick={handleDeleteClick}
+                >
+                    delete
+                </Typography>
+            </Stack>
         </ContainerPaper>
     );
 };
