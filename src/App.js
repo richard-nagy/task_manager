@@ -1,6 +1,7 @@
 import { AppBar, Box, Button, CircularProgress, Paper, Toolbar, Typography } from "@mui/material";
 import { Container, Stack } from "@mui/system";
 import React, { createContext, useEffect, useState } from "react";
+import ListForm from "./components/ListForm";
 import TaskList from "./components/TaskList";
 
 const Context = createContext("Default Value");
@@ -33,9 +34,9 @@ function App() {
         },
     ]);
 
-    function refreshClock() {
+    const refreshClock = () => {
         setTime((old) => (old > 0 ? old - 1 : old));
-    }
+    };
 
     useEffect(() => {
         const timerId = setInterval(refreshClock, 1000);
@@ -77,6 +78,18 @@ function App() {
         }
     };
 
+    const addNewTaskList = (listName) => {
+        setTaskLists((oldTaskList) => [
+            ...oldTaskList,
+            {
+                id: `list${id++}`,
+                title: listName,
+                tasks: [],
+                bgColor: { main: "lightcoral", second: "red" },
+            },
+        ]);
+    };
+
     return (
         <Context.Provider value={changeListsTasks}>
             <Box mt={6}>
@@ -92,10 +105,11 @@ function App() {
                 {taskLists.map((list, i) => {
                     return <TaskList list={list} listIndex={i} />;
                 })}
-                <Container
+                <ListForm addNewTaskList={addNewTaskList} />
+                {/* <Container
                     component={Paper}
                     sx={{ width: "200px", bacgkroundColor: "red", margin: "5px" }}
-                ></Container>
+                ></Container> */}
             </Stack>
         </Context.Provider>
     );

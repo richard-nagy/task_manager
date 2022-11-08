@@ -9,23 +9,23 @@ import { Context } from "../App";
 // import { ResponsiveStack } from "../styles/common/Stack";
 
 function TaskForm({ listIndex }) {
-    const [input, setInput] = useState("");
+    const [newTask, setNewTask] = useState("");
     const [addNewTask, setAddNewTask] = useState(false);
 
     const changeListsTasks = useContext(Context);
 
     const handleChange = (e) => {
-        setInput(e.target.value);
+        setNewTask(e.target.value);
     };
 
     const handleClickSubmit = () => {
-        changeListsTasks("add", null, listIndex, input);
-        setInput("");
+        changeListsTasks("add", null, listIndex, newTask);
+        setNewTask("");
         setAddNewTask(false);
     };
 
     const handleClickCancel = () => {
-        setInput("");
+        setNewTask("");
         setAddNewTask(false);
     };
 
@@ -45,7 +45,7 @@ function TaskForm({ listIndex }) {
         <Paper>
             <form onSubmit={handleClickSubmit}>
                 <Stack direction="row">
-                    <TextField label="New task..." value={input} onChange={handleChange} />
+                    <TextField label="New task..." value={newTask} onChange={handleChange} />
                     <Fab tooltip="Add" color="primary" onClick={handleClickSubmit}>
                         <AddIcon />
                     </Fab>
