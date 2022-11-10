@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Task from "./Task";
 import TaskForm from "./TaskForm";
 import { Box, Container, Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-// import { TasksContainer } from "../styles/TaskList";
+import { StyledPaper } from "../styles/TaskList";
+import { StyledButton } from "../styles/TaskForm";
+import { Context } from "../App";
 
 function TaskList({ list, listIndex }) {
+    const changeListsTasks = useContext(Context);
+
+    const addNewTask = () => {
+        changeListsTasks("add", null, listIndex);
+    };
+
     return (
-        <Paper sx={{ padding: "10px" }}>
+        <StyledPaper bgColor={list.bgColor}>
             <Stack direction="column" spacing={1}>
                 <h1>{list.title}</h1>
                 {list.tasks.map((task, i) => {
@@ -21,9 +29,9 @@ function TaskList({ list, listIndex }) {
                         />
                     );
                 })}
-                <TaskForm listIndex={listIndex} />
+                <StyledButton onClick={addNewTask}>Add task</StyledButton>
             </Stack>
-        </Paper>
+        </StyledPaper>
     );
 }
 

@@ -8,7 +8,7 @@ import {
     Typography,
 } from "@mui/material";
 import React, { createContext, useContext, useState } from "react";
-import { ContainerPaper } from "../styles/common/Paper";
+import { StyledPaper } from "../styles/common/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -19,7 +19,7 @@ import { ButtonStack, ResponsiveStack } from "../styles/common/Stack";
 import styled from "@emotion/styled";
 import { Context } from "../App";
 
-const CssTextField = styled(TextField)({
+const StyledTextField = styled(TextField)({
     "& .MuiOutlinedInput-root": {
         "&.Mui-focused": {
             backgroundColor: "#FFFFFF80",
@@ -49,9 +49,9 @@ const Task = ({ task, taskIndex, listIndex }) => {
     };
 
     return (
-        <ContainerPaper>
+        <StyledPaper>
             <Stack direction="column" alignItems="flex-end">
-                <CssTextField
+                <StyledTextField
                     multiline
                     value={editedTask.description}
                     onChange={(e) => handleTextboxInput(e)}
@@ -72,7 +72,7 @@ const Task = ({ task, taskIndex, listIndex }) => {
                     delete
                 </Typography>
             </Stack>
-        </ContainerPaper>
+        </StyledPaper>
     );
 };
 

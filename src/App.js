@@ -18,19 +18,19 @@ function App() {
                 { id: `task${id++}`, description: "b" },
                 { id: `task${id++}`, description: "c" },
             ],
-            bgColor: { main: "lightgreen", second: "green" },
+            bgColor: { primary: "lightgreen", secondary: "green" },
         },
         {
             id: `list${id++}`,
             title: "Doing",
             tasks: [],
-            bgColor: { main: "lightcoral", second: "red" },
+            bgColor: { primary: "lightcoral", secondary: "red" },
         },
         {
             id: `list${id++}`,
             title: "Done",
             tasks: [],
-            bgColor: { main: "lightyellow", second: "yellow" },
+            bgColor: { primary: "lightyellow", secondary: "yellow" },
         },
     ]);
 
@@ -56,7 +56,6 @@ function App() {
         setTime(5);
 
         const newLists = taskLists;
-        console.log(taskLists);
 
         switch (type) {
             case "add":
@@ -85,7 +84,7 @@ function App() {
                 id: `list${id++}`,
                 title: listName,
                 tasks: [],
-                bgColor: { main: "lightcoral", second: "red" },
+                bgColor: { primary: "lightcoral", secondary: "red" },
             },
         ]);
     };
@@ -101,15 +100,21 @@ function App() {
                     </Toolbar>
                 </AppBar>
             </Box>
-            <Stack direction="row" p={5} sx={{ width: "max-content" }} spacing={2}>
+            <Stack
+                direction="row"
+                p={5}
+                sx={{
+                    width: "max-content",
+                    // height: "100%",
+                    // backgroundColor: "green",
+                    // height: "100%",
+                }}
+                spacing={2}
+            >
                 {taskLists.map((list, i) => {
                     return <TaskList list={list} listIndex={i} />;
                 })}
                 <ListForm addNewTaskList={addNewTaskList} />
-                {/* <Container
-                    component={Paper}
-                    sx={{ width: "200px", bacgkroundColor: "red", margin: "5px" }}
-                ></Container> */}
             </Stack>
         </Context.Provider>
     );

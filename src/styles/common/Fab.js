@@ -8,6 +8,11 @@ export const MuiFab = ({ children, tooltip = null, ...rest }) => {
                 {...rest}
                 sx={{
                     width: { xs: "100%", sm: "auto" },
+                    color: "#000",
+                    backgroundColor: "#FFFFFFB3",
+                    ":hover": {
+                        backgroundColor: "#FFFFFF99",
+                    },
                 }}
             >
                 {children}

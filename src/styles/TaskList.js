@@ -1,15 +1,17 @@
 import { Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
-export const TasksContainer = ({ children, bgColor, ...rest }) => {
+export const StyledPaper = ({ children, bgColor, ...rest }) => {
     return (
         <Paper
             {...rest}
             sx={{
-                p: 3,
-                backgroundColor: bgColor,
+                p: 1,
+                backgroundColor: bgColor.primary,
                 width: "400px",
                 maxWidth: "md",
+                height: "calc(100vh - 140px)",
+                overflow: "auto",
             }}
         >
             {children}
