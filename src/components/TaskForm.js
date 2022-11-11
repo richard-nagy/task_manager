@@ -11,7 +11,6 @@ import { StyledButton } from "../styles/TaskForm";
 
 function TaskForm({ listIndex }) {
     const [newTask, setNewTask] = useState("");
-    const [addNewTask, setAddNewTask] = useState(false);
 
     const changeListsTasks = useContext(Context);
 
@@ -22,25 +21,7 @@ function TaskForm({ listIndex }) {
     const handleClickSubmit = () => {
         changeListsTasks("add", null, listIndex, newTask);
         setNewTask("");
-        setAddNewTask(false);
     };
-
-    const handleClickCancel = () => {
-        setNewTask("");
-        setAddNewTask(false);
-    };
-
-    if (!addNewTask) {
-        return (
-            <StyledButton
-                onClick={() => {
-                    setAddNewTask(true);
-                }}
-            >
-                +
-            </StyledButton>
-        );
-    }
 
     return (
         <StyledPaper>

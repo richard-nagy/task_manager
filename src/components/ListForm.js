@@ -8,25 +8,30 @@ import MuiFab from "../styles/common/Fab";
 import { StyledPaper } from "../styles/common/Paper";
 import { ResponsiveStack } from "../styles/common/Stack";
 
-const ListForm = ({ addNewTaskList }) => {
-    const [newListName, setNewListName] = useState("");
+const ListForm = ({ addList }) => {
+    const [listName, setListName] = useState("");
 
     const handleChange = (e) => {
-        setNewListName(e.target.value);
+        setListName(e.target.value);
     };
 
     const handleClickSubmit = () => {
-        addNewTaskList(newListName);
-        setNewListName("");
+        addList(listName);
+        setListName("");
     };
 
     return (
-        <Paper>
+        <Paper
+            sx={{
+                width: "400px",
+                height: "50px",
+            }}
+        >
             <form onSubmit={handleClickSubmit}>
                 <Stack direction="row">
                     <TextField
                         label="New list name"
-                        value={newListName}
+                        value={listName}
                         onChange={handleChange}
                         sx={{ margin: "5px" }}
                     />

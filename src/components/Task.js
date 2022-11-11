@@ -7,7 +7,7 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { StyledPaper } from "../styles/common/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -35,17 +35,39 @@ const StyledTextField = styled(TextField)({
 });
 
 const Task = ({ task, taskIndex, listIndex }) => {
-    const [editedTask, setEditedTask] = useState({ id: task.id, description: task.description });
+    const updateTasks = useContext(Context);
+    const [text, setText] = useState(task);
 
-    const changeListsTasks = useContext(Context);
+    useEffect(() => {
+        updateTasks(null, true);
 
-    const handleTextboxInput = (e) => {
-        setEditedTask((oldTask) => ({ ...oldTask, description: e.target.value }));
-        changeListsTasks("edit", taskIndex, listIndex, editedTask);
+        let timer1 = setTimeout(() => {
+            updateTasks((prevState) => {
+                return prevState.map((item, i) => {
+                    if (i === listIndex) {
+                        return item.map((item, i) => (i === taskIndex ? text : item));
+                    } else return item;
+                });
+            });
+        }, 5000);
+
+        return () => {
+            clearTimeout(timer1);
+        };
+    }, [text]);
+
+    const handleInput = (e) => {
+        setText(e.target.value);
     };
 
     const handleDeleteClick = () => {
-        changeListsTasks("delete", taskIndex, listIndex);
+        updateTasks((oldState) => {
+            return oldState.map((item, i) => {
+                if (i === listIndex) {
+                    return item.filter((_, i) => i !== taskIndex);
+                } else return item;
+            });
+        }, true);
     };
 
     return (
@@ -53,9 +75,10 @@ const Task = ({ task, taskIndex, listIndex }) => {
             <Stack direction="column" alignItems="flex-end">
                 <StyledTextField
                     multiline
-                    value={editedTask.description}
-                    onChange={(e) => handleTextboxInput(e)}
+                    value={text}
+                    onChange={(e) => handleInput(e)}
                     maxRows={6}
+                    placeholder="Enter task..."
                 />
                 <Typography
                     variant="caption"
